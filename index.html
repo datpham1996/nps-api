@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>NPS Api</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1>NPS API</h1>
+    <main class="container">
+      <form class="user-form">
+        <label for="State">
+          Enter 2 Letter State Code seperated by a comma:
+          <input
+            type="text"
+            name="state"
+            id="state"
+            required
+            placeholder="State"
+          />
+        </label>
+        <label for="max">
+          Type in the max number of results you'd like to see:
+          <input
+            type="number"
+            name="max"
+            id="max"
+            required
+            placeholder="number"
+            value="10"
+            min="1"
+          />
+        </label>
+        <button type="submit" name="Submit" value="Submit">Submit</button>
+      </form>
+      <p id="js-error-message" class="error-message"></p>
+      <section id="results" class="hidden">
+        <h2>Search results</h2>
+        <ul id="results-list"></ul>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
