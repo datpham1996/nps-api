@@ -12,7 +12,6 @@ function formatQueryParams(params) {
 function displayResults(responseJson) {
   console.log(responseJson);
   $('#results-list').empty();
-  // iterate through the items array
   let html = '';
   for (let i = 0; i < responseJson.data.length; i++) {
     const park = responseJson.data[i];
@@ -28,22 +27,41 @@ function displayResults(responseJson) {
           <p>Address: ${address}</p>
         </li>`;
   }
- 
+
   $('#results-list').html(html);
   $('#results').removeClass('hidden');
 }
 
 function getParkResults(query, maxResults = 10) {
   maxResults -= 1;
+  // let stateCodeString = ''
+  // // check if the query have comma inside
+  // if (query.indexOf(',') > -1) {
+  //   // if it has comma, create a string for state code
+  //   let stateArray = query.split(",")
+  //   //  console.log(stateArray);
+  //   for (let i = 0; i < stateArray.length; i++) {
+  //     console.log(stateArray[i]);
+  //     stateCodeString += `stateCode=${stateArray[i]}&`
+  //   }
+  // }
+
+  // // if not, use as it is
+  // else {
+  //   stateCodeString = `stateCode=${query}&`
+  // }
 
   const params = {
     api_key: API_KEY,
     limit: maxResults,
-    stateCode: query
+    q: query
   };
 
   const queryString = formatQueryParams(params);
-  const url = searchURL + '?' + queryString;
+  // const url = searchURL + '?' + queryString + '&' + stateCodeString;
+  const url = searchURL + '?' + queryString 
+  console.log(url);
+
 
   fetch(url)
     .then(response => {
@@ -59,7 +77,7 @@ function getParkResults(query, maxResults = 10) {
 }
 
 function watchForm() {
-  $('.user-form').submit(function(event) {
+  $('.user-form').submit(function (event) {
     event.preventDefault();
     const state = $(this)
       .find('#state')
@@ -67,6 +85,7 @@ function watchForm() {
     const maxResults = $(this)
       .find('#max')
       .val();
+    console.log(state, maxResults)
     getParkResults(state, maxResults);
   });
 }
